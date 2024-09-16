@@ -10,7 +10,7 @@ let nanoid;
 const taskSchema = new mongoose.Schema({
   id: {
     type: String,
-    default: () => nanoid(10), // Generate a unique ID with 12 characters
+    // default: () => nanoid(10), // Generate a unique ID with 12 characters
     unique: true, // Ensure the ID is unique
   },
   taskTitle: {

@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const { body, param, validationResult } = require('express-validator');
-const { addUser } = require('../services/user/user-service');
+const { addUser,loginUser } = require('../services/user/user-service');
 const { authenticate } = require('../utils/auth');
 const { validateTaskId } = require('../utils/validation');
 const { addTask, getTask, getAllTask, deleteTask, updateTask } = require('../services/tasks/task-service');
 
 // Auth routes
-router.post('/auth/task-manager', [
+router.post('/auth/signup', [
   body('name').notEmpty().withMessage('Username is required.'),
   body('email').notEmpty().withMessage('Password is required.')
 ], async (req, res) => {
@@ -15,10 +15,27 @@ router.post('/auth/task-manager', [
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  
   try {
     const result = await addUser(req);
-    res.status(201).json(result);
+    res.send(result);
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while adding the user.', details: error.message });
+  }
+});
+
+
+
+router.post('/auth/login', [
+  body('email').notEmpty().withMessage('email is required.')
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  
+  try {
+    const result = await loginUser(req);
+    res.send(result);
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while adding the user.', details: error.message });
   }
@@ -45,6 +62,10 @@ router.post('/task', authenticate, [
     res.status(500).json({ error: 'An error occurred while creating the task.', details: error.message });
   }
 });
+
+
+
+
 
 // Get all tasks
 router.get('/all-task', authenticate, async (req, res) => {
