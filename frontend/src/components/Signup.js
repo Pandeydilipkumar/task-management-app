@@ -11,13 +11,14 @@ import "./style.css";
 import { Link } from "react-router-dom";
 // Axios
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState({
     name: "",
     email: "",
-    password: "",
-    confirmPassword: "",
+    phone: "",
     IsAccepted: false,
   });
 
@@ -40,11 +41,42 @@ const SignUp = () => {
     setTouched({ ...touched, [event.target.name]: true });
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
     if (!Object.keys(errors).length) {
-      // Pushing data to database usuing PHP script
-      
+      console.log("data", data)
+      const urlApi = `http://localhost:4000`;
+      let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: `${urlApi}/api/auth/signup`,
+        headers: { 'Content-Type': 'application/json'},
+        data : JSON.stringify({
+          "name": data.name,
+          "email": data.email,
+          "phone": data.phone
+        })
+      };
+      console.log("config", config)
+      try {
+        axios
+        .request(config)
+        .then((response) => response.data)
+        .then((data) => {
+          console.log("data", data)
+          if(data?.userid){
+            localStorage.setItem('userToken', JSON.stringify(data?.token));
+            navigate('/home');
+          }else{
+            alert(data?.error)
+          }
+        })
+        .catch((error) => {
+          console.log("api error", error)
+        });
+      }catch(e){
+        console.log("api error", e)
+      }
     } else {
       setTouched({
         name: true,
@@ -75,18 +107,11 @@ const SignUp = () => {
           {errors.email && touched.email && <span className={'error'}>{errors.email}</span>}
         </div>
         <div>
-          <div className={errors.password && touched.password ? 'unCompleted' : !errors.password && touched.password ? 'completed' : undefined}>
-            <input type="password" name="password" value={data.password} placeholder="Password" onChange={changeHandler} onFocus={focusHandler} autoComplete="off" />
+          <div className={errors.phone && touched.phone ? 'unCompleted' : !errors.phone && touched.phone ? 'completed' : undefined}>
+            <input type="text" name="phone" value={data.phone} placeholder="Phone" onChange={changeHandler} onFocus={focusHandler} autoComplete="off" />
             <img src={passwordIcon} alt="" />
           </div>
-          {errors.password && touched.password && <span className={'error'}>{errors.password}</span>}
-        </div>
-        <div>
-          <div className={errors.confirmPassword && touched.confirmPassword ? 'unCompleted' : !errors.confirmPassword && touched.confirmPassword ? 'completed' : !errors.confirmPassword && touched.confirmPassword ? 'completed' : undefined}>
-            <input type="password" name="confirmPassword" value={data.confirmPassword} placeholder="Confirm Password" onChange={changeHandler} onFocus={focusHandler} autoComplete="off" />
-            <img src={passwordIcon} alt="" />
-          </div>
-          {errors.confirmPassword && touched.confirmPassword && <span className={'error'}>{errors.confirmPassword}</span>}
+          {errors.phone && touched.phone && <span className={'error'}>{errors.phone}</span>}
         </div>
         <div>
           <div className={'terms'}>

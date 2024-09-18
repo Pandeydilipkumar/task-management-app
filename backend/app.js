@@ -12,8 +12,8 @@ connectDB();
 app.use(bodyParser.json());
 // Middleware to parse URL-encoded data (for form submissions)
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors("*"));
 
+app.use(cors());
 
 // Basic helth-check route
 app.get('/health-check', (req, res) => {

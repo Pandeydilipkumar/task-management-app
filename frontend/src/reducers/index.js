@@ -6,6 +6,11 @@ export const taskreducers = function (state = {tasks : []}, action) {
               ...state,
               tasks : [...state.tasks, action.payload ]
           }
+      case "ALL_TASK":
+          return {
+              ...state,
+              tasks : action.payload
+          }
       default:
         return state;
     }

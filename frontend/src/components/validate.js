@@ -9,12 +9,12 @@ export const validate = (data, type) => {
       delete errors.email;
     }
   
-    if (!data.password) {
-      errors.password = "Password is Required";
-    } else if (!(data.password.length >= 6)) {
-      errors.password = "Password needs to be 6 character or more";
+    if (!data.phone) {
+      errors.password = "Phone no is Required";
+    } else if (!(data.phone.length >= 6)) {
+      errors.password = "Phone no should be 10 digit";
     } else {
-      delete errors.password;
+      delete errors.phone;
     }
   
     if (type === "signUp") {
@@ -23,14 +23,6 @@ export const validate = (data, type) => {
       } else {
         delete errors.name;
       }
-      if (!data.confirmPassword) {
-        errors.confirmPassword = "Confirm the Password";
-      } else if (!(data.confirmPassword === data.password)) {
-        errors.confirmPassword = "Password is not match!";
-      } else {
-        delete errors.confirmPassword;
-      }
-  
       if (data.IsAccepted) {
         delete errors.IsAccepted;
       } else {

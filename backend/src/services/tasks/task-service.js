@@ -11,8 +11,11 @@ const addTask = async (taskPayload) => {
 
     const newTask = new Task(taskPayload);
     const savedTask = await newTask.save();
+    console.log('asss',savedTask,taskPayload)
+
     return savedTask;
   } catch (error) {
+    console.log("error",error)
     throw new Error(`Error saving task: ${error.message}`);
   }
 };
@@ -72,10 +75,11 @@ const deleteTask = async (taskid) => {
       throw new ValidationError('Task ID is required.');
     }
 
-    const result = await Task.deleteOne({ id: taskid });
-    if (result.deletedCount === 0) {
-      throw new Error('Task not found.');
-    }
+    await Task.deleteOne({ id: taskid });
+    const result = await getAllTask()
+    // if (result.deletedCount === 0) {
+    //   throw new Error('Task not found.');
+    // }
     return result;
   } catch (error) {
     throw new Error(`Error deleting task: ${error.message}`);
@@ -98,109 +102,3 @@ module.exports = {
 
 
 
-// const Task = require('../../models/task-model');
-// const addTask = async (req, res) => {
-//   try {
-//     const { taskTitle, description, dueDate, priority, status } = req.body
-//     const taskPayload = {
-//       taskTitle,
-//       description,
-//       dueDate,
-//       priority,
-//       status,
-//     };
-//     const newTask = new Task(taskPayload);
-//     const savedTask = await newTask.save();
-//     const response = { "message": "task created", "data": savedTask }
-//     return response
-
-//   } catch (error) {
-//     console.error('Error saving task:', error);
-//   }
-// };
-
-// const getTask = async (req, res) => {
-//   try {
-//     const { taskid } = req.params;
-
-//     const taskPayload = { "id": taskid }
-//     const task = await Task.findOne(taskPayload);
-//     const response = { "message": " one task fetched", "data": task }
-//     return response
-//   } catch (error) {
-//     console.log("eee", error)
-//     console.error('Error fetching task:', error);
-//   }
-// };
-
-
-// const getAllTask = async (req, res) => {
-//   try {
-//     const taskPayload = {}
-//     const task = await Task.find(taskPayload);
-//     const response = { "message": "all task fetched", "data": task }
-//     return response
-//   } catch (error) {
-//     console.log("eee all error", error)
-//     console.error('Error fetching task:', error);
-//   }
-// };
-
-
-
-
-
-// const updateTask = async (req, res) => {
-//   console.log("Request received for task update:", req.params, req.body);
-
-
-//   const { taskid } = req.params;
-
-//   if (!taskid) {
-//     return res.status(400).json({ error: 'Task ID is required.' });
-//   }
-
-//   const updates = req.body;
-
-//   try {
-//     const result = await Task.findOneAndUpdate(
-//       { id: taskid },
-//       updates,
-//       { new: true, runValidators: true }
-//     );
-
-//     if (!result) {
-//       return res.status(404).json({ error: 'Task not found.' });
-//     }
-
-
-//     return res.status(200).json({
-//       message: 'Task updated successfully.',
-//       data: result
-//     });
-
-//   } catch (error) {
-//     console.error('Error updating task:', error);
-//     return res.status(500).json({ error: 'An error occurred while updating the task.' });
-//   }
-// };
-
-
-
-// const deleteTask = async (req, res) => {
-//   try {
-//     const { taskid } = req.params;
-//     const result = await Task.deleteOne({ id: taskid });
-//     const response = { "message": "task deleted", "data": result }
-//   } catch (error) {
-//     console.error('Error deleting task:', error);
-//   }
-// }
-
-// module.exports = {
-//   addTask,
-//   getTask,
-//   getAllTask,
-//   deleteTask,
-//   updateTask
-// };

@@ -13,12 +13,30 @@ const Login = () => {
   const [touched, setTouched] = useState({});
 
   const chaeckData = (obj) => {
-    // const { email, password } = obj;
-    // const urlApi = `https://lightem.senatorhost.com/login-react/index.php?email=${email.toLowerCase()}&password=${password}`;
-    // const api = axios
-    //   .get(urlApi)
-    //   .then((response) => response.data)
-    //   .then((data) => (data.ok ? alert("You login to your account successfully", "success") : alert("Your password or your email is wrong", "error")));
+    const { email } = obj;
+    const urlApi = `http://localhost:4000/api/auth/login`;
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: `${urlApi}`,
+      headers: { 'Content-Type': 'application/json'},
+      data : JSON.stringify({ "email": email})
+    };
+    axios
+      .request(config)
+      .then((response) => response.data)
+      .then((data) => {
+        console.log("data", data)
+        if(data?.userid){
+          localStorage.setItem('userToken', JSON.stringify(data?.token));
+          navigate('/home');
+        }else{
+          alert(data?.error)
+        }
+      })
+      .catch((error) => {
+        console.log("api error", error)
+      });
   };
 
   const changeHandler = (event) => {
@@ -35,8 +53,7 @@ const Login = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    // chaeckData(data);
-    navigate('/home');
+    chaeckData(data);
   };
 
   return (
@@ -49,12 +66,12 @@ const Login = () => {
             <img src={emailIcon} alt="" />
           </div>
         </div>
-        <div>
+        {/* <div>
           <div>
             <input type="password" name="password" value={data.password} placeholder="Password" onChange={changeHandler} onFocus={focusHandler} autoComplete="off" />
             <img src={passwordIcon} alt="" />
           </div>
-        </div>
+        </div> */}
 
         <div>
           <button type="submit">Login</button>
