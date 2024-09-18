@@ -1,5 +1,5 @@
 # Getting Started with Create React App
-# step to run frontend
+# step to run backend
 1. clone this repo
 2. go to backend folder
 3. install required packages (npm install)
