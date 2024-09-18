@@ -1,0 +1,287 @@
+{
+	"info": {
+		"_postman_id": "34ef42a2-f5b8-42d9-943d-1ee0057dd543",
+		"name": "task-management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25224030",
+		"_collection_link": "https://abc444-1019.postman.co/workspace/abc-Workspace~2176b673-e5da-41b3-917b-dbb9cc230383/collection/25224030-34ef42a2-f5b8-42d9-943d-1ee0057dd543?action=share&source=collection_link&creator=25224030"
+	},
+	"item": [
+		{
+			"name": "health-check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://4b12-2405-201-d022-e983-ec7a-4e5f-4220-e168.n/health-check",
+					"protocol": "https",
+					"host": [
+						"4b12-2405-201-d022-e983-ec7a-4e5f-4220-e168",
+						"n"
+					],
+					"path": [
+						"health-check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"dilip kumar\",\r\n    \"email\":\"chandan@gmail.com\",\r\n    \"phone\":8789967445\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/auth/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"email\":\"dilip@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://4b12-2405-201-d022-e983-ec7a-4e5f-4220-e168.ngrok-free.app/api/auth/login",
+					"protocol": "https",
+					"host": [
+						"4b12-2405-201-d022-e983-ec7a-4e5f-4220-e168",
+						"ngrok-free",
+						"app"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create-task",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ik9ZMTI5S0xsZ24iLCJlbWFpbCI6ImRpbGlwQGdtYWlsLmNvbSIsImlhdCI6MTcyNjUwMTQxNSwiZXhwIjoxNzI2NTA1MDE1fQ.j_nahpzsYan5m9WZJux9ijMhFkY6OGHiIUOUCcM5Oo8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"1234a5s\",\r\n    \"taskTitle\": \"abcd and asdfg\",\r\n    \"description\": \"abcgd\",\r\n    \"dueDate\": \"1245\",\r\n    \"priority\": \"low\",\r\n    \"status\": \"completed\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/task",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"task"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetch one task",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ii1Pb0VEZEwxcEYiLCJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJpYXQiOjE3MjY0MTY1MzksImV4cCI6MTcyNjQyMDEzOX0.3VYmY1SUk3T-JP0DJhvzJ7rR-VWaNVQxT6_f6Smoy7s",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/task/AYQH-xJNie",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"task",
+						"AYQH-xJNie"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetch all task",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ii1Pb0VEZEwxcEYiLCJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJpYXQiOjE3MjY0MTY1MzksImV4cCI6MTcyNjQyMDEzOX0.3VYmY1SUk3T-JP0DJhvzJ7rR-VWaNVQxT6_f6Smoy7s",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/api/all-task/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"all-task",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete task",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ii1Pb0VEZEwxcEYiLCJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJpYXQiOjE3MjY0MTY1MzksImV4cCI6MTcyNjQyMDEzOX0.3VYmY1SUk3T-JP0DJhvzJ7rR-VWaNVQxT6_f6Smoy7s",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/api/task/4lhNNNKFDl",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"task",
+						"4lhNNNKFDl"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update task",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ii1Pb0VEZEwxcEYiLCJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJpYXQiOjE3MjY0MTY1MzksImV4cCI6MTcyNjQyMDEzOX0.3VYmY1SUk3T-JP0DJhvzJ7rR-VWaNVQxT6_f6Smoy7s",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"taskTitle\": \"abcd and\",\r\n    \"description\": \"This task is completed\",\r\n    \"dueDate\": \"1245\",\r\n    \"priority\": \"high\",\r\n    \"status\": \"completed\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/task/mtu9vqkPrp",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"task",
+						"mtu9vqkPrp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"dilip@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
